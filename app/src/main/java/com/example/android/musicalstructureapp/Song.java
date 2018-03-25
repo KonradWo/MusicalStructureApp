@@ -19,7 +19,7 @@ public class Song {
         return mArtist;
     }
 
-    public int getmImageResourceId() {
+    public int getImageResourceId() {
         return mImageResourceId;
     }
 }

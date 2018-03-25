@@ -12,14 +12,21 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class PlaylistActivity extends AppCompatActivity {
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+    @BindView(R.id.image_settings)
+    ImageView iconSettings;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.song_list);
+        ButterKnife.bind(this);
 
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle(getString(R.string.playlist));
         mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -57,7 +64,6 @@ public class PlaylistActivity extends AppCompatActivity {
             }
         });
 
-        ImageView iconSettings = (ImageView) findViewById(R.id.image_settings);
         iconSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

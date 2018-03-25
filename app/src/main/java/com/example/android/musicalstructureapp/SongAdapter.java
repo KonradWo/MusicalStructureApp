@@ -12,30 +12,48 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class SongAdapter extends ArrayAdapter<Song> {
     public SongAdapter(Context context, ArrayList<Song> songs) {
         super(context, 0, songs);
     }
 
+    static class ViewHolder {
+        @BindView(R.id.text_list_title)
+        TextView titleTextView;
+        @BindView(R.id.text_list_artist)
+        TextView artistTextView;
+        @BindView(R.id.image_cover)
+        ImageView coverImageView;
+
+        public ViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
+    }
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View listItemView = convertView;
-        if (listItemView == null) {
-            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
+        ViewHolder holder;
+
+        if (convertView == null) {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
+            holder = new ViewHolder(convertView);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
 
         Song currentSong = getItem(position);
 
-        TextView titleTextView = (TextView) listItemView.findViewById(R.id.text_list_title);
-        titleTextView.setText(currentSong.getTitle());
+        if (currentSong != null) {
+            holder.titleTextView.setText(currentSong.getTitle());
+            holder.artistTextView.setText(currentSong.getArtist());
+            holder.coverImageView.setImageResource(currentSong.getImageResourceId());
+        }
 
-        TextView artistTextView = (TextView) listItemView.findViewById(R.id.text_list_artist);
-        artistTextView.setText(currentSong.getArtist());
-
-        ImageView coverImageView = (ImageView) listItemView.findViewById(R.id.image_cover);
-        coverImageView.setImageResource(currentSong.getmImageResourceId());
-
-        return listItemView;
+        return convertView;
     }
 }

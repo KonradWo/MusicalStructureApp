@@ -8,17 +8,27 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity {
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+    @BindView(R.id.button_playlist)
+    Button playlist;
+    @BindView(R.id.button_player)
+    Button player;
+    @BindView(R.id.image_settings)
+    ImageView iconSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle(getString(R.string.app_name));
 
-        Button playlist = (Button) findViewById(R.id.button_playlist);
         playlist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -27,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button player = (Button) findViewById(R.id.button_player);
         player.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -36,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ImageView iconSettings = (ImageView) findViewById(R.id.image_settings);
         iconSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

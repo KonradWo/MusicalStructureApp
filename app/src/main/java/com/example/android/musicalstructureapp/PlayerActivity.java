@@ -9,14 +9,27 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class PlayerActivity extends AppCompatActivity {
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+    @BindView(R.id.text_player_title)
+    TextView mSongTitle;
+    @BindView(R.id.text_player_artist)
+    TextView mSongArtist;
+    @BindView(R.id.image_queue_music)
+    ImageView queue;
+    @BindView(R.id.image_settings)
+    ImageView iconSettings;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.player);
+        ButterKnife.bind(this);
 
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle(getString(R.string.player));
         mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -31,14 +44,10 @@ public class PlayerActivity extends AppCompatActivity {
             String songTitle = extras.getString("songTitle");
             String songArtist = extras.getString("songArtist");
 
-            TextView mSongTitle = (TextView) findViewById(R.id.text_player_title);
             mSongTitle.setText(songTitle);
-
-            TextView mSongArtist = (TextView) findViewById(R.id.text_player_artist);
             mSongArtist.setText(songArtist);
         }
 
-        ImageView queue = (ImageView) findViewById(R.id.image_queue_music);
         queue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,7 +56,6 @@ public class PlayerActivity extends AppCompatActivity {
             }
         });
 
-        ImageView iconSettings = (ImageView) findViewById(R.id.image_settings);
         iconSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
